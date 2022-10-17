@@ -1,15 +1,28 @@
 <html>
-  <body>
-    <textarea id='input-data'></textarea>
-    <button id='start-btn'>Start</button>
-    <p id='output'></p>
-    
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div class="form">
+        <textarea id='input-data'></textarea>
+        <button id='start-btn'>Start</button>
+    </div>
+    <div class="content">
+        <h4 id="counter"></h4>
+        <p id='output'></p>
+    </div>
     <script>
-      var startBtn = document.getElementById('start-btn');
-      var editor = document.getElementById('input-data');
-      startBtn.onclick = function () {
-        alert(editor.value);
-      }
+        let startBtn = document.getElementById('start-btn');
+        let editor = document.getElementById('input-data');
+        startBtn.onclick = function () {
+            let value = editor.value;
+            const matches = value.match(/((?:(?:\d{1,3}|[0-3]\d{3}|40[0-8]\d|409[0-6]|)(,|-))*?(?:(?:\d{1,3}|[0-3]\d{3}|40[0-8]\d|409[0-6]))( ?)x( ?)[0-9])\w+/g);
+            console.log(matches);
+            document.querySelector('#counter').innerText = matches.length + " results";
+            document.querySelector('#output').innerHTML = matches.map(line => (
+                `${line.split('x')[0].trim().split(',').join(', ')} each ${line.split('x')[1].trim().replace('n', '')} k`
+            )).join('<br/><br/>')
+        }
     </script>
-  </body>
+</body>
 </html>
